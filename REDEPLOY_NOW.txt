@@ -1,0 +1,43 @@
+═══════════════════════════════════════════════════════════════
+  ERREUR 500 CORRIGÉE - REDÉPLOYER MAINTENANT
+═══════════════════════════════════════════════════════════════
+
+✅ PROBLÈME CORRIGÉ : Logger incompatible Vercel serverless
+✅ SOLUTION : Console.log pour Vercel, fichiers pour local
+
+═══════════════════════════════════════════════════════════════
+  REDÉPLOYER - 3 ÉTAPES (5 MINUTES)
+═══════════════════════════════════════════════════════════════
+
+1. MongoDB Atlas (30 sec)
+   https://cloud.mongodb.com
+   → Network Access → Vérifier 0.0.0.0/0
+
+2. Vercel Variables (2 min)
+   Vercel → Settings → Environment Variables
+   Vérifier : MONGO_URI, JWT_SECRET, NODE_ENV
+
+3. Redéployer (2 min)
+
+   GIT :
+   git add .
+   git commit -m "Fix: Logger Vercel"
+   git push
+
+   OU DASHBOARD :
+   Vercel → Deployments → ⋯ → Redeploy
+
+═══════════════════════════════════════════════════════════════
+  TESTER
+═══════════════════════════════════════════════════════════════
+
+curl https://[VOTRE-URL].vercel.app/
+
+ATTENDU :
+{ "success": true, "message": "Bienvenue...", "status": "OK" }
+
+═══════════════════════════════════════════════════════════════
+
+VOIR : ERREUR_500_CORRIGEE.md pour détails complets
+
+═══════════════════════════════════════════════════════════════

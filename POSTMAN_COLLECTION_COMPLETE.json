@@ -1,0 +1,1184 @@
+{
+  "info": {
+    "name": "ALLOTRACTEUR API Complete",
+    "description": "Collection complète de l'API ALLOTRACTEUR - Toutes les routes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "2.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentification",
+      "item": [
+        {
+          "name": "Inscription",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Diallo\",\n  \"prenom\": \"Mamadou\",\n  \"email\": \"mamadou@example.com\",\n  \"telephone\": \"+221771234567\",\n  \"motDePasse\": \"Password123!\",\n  \"role\": \"producteur\",\n  \"adresse\": \"Dakar, Sénégal\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Connexion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"mamadou@example.com\",\n  \"motDePasse\": \"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Mot de passe oublié",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telephone\": \"+221771234567\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/forgot-password",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "forgot-password"]
+            }
+          }
+        },
+        {
+          "name": "Vérifier OTP",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telephone\": \"+221771234567\",\n  \"code\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/verify-otp",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "verify-otp"]
+            }
+          }
+        },
+        {
+          "name": "Réinitialiser mot de passe",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telephone\": \"+221771234567\",\n  \"code\": \"123456\",\n  \"nouveauMotDePasse\": \"NewPassword123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/reset-password",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "reset-password"]
+            }
+          }
+        },
+        {
+          "name": "Mon profil",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/profile",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Dashboard Admin",
+      "item": [
+        {
+          "name": "Statistiques générales",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/statistics",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "statistics"]
+            }
+          }
+        },
+        {
+          "name": "Liste utilisateurs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Détails utilisateur",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Changer rôle utilisateur",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"prestataire\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/:id/role",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", ":id", "role"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Activer/Désactiver utilisateur",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/users/:id/status",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", ":id", "status"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Supprimer utilisateur",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Liste machines (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/machines?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "machines"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Liste réservations (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/reservations?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "reservations"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Liste paiements (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/payments?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "payments"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Dashboard Producteur",
+      "item": [
+        {
+          "name": "Statistiques producteur",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/producteur/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["producteur", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Mes réservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/producteur/reservations?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["producteur", "reservations"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mes paiements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/producteur/paiements?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["producteur", "paiements"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mes avis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/producteur/avis?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["producteur", "avis"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Machines disponibles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/producteur/machines-disponibles?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["producteur", "machines-disponibles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Historique réservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/producteur/historique",
+              "host": ["{{base_url}}"],
+              "path": ["producteur", "historique"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Dashboard Prestataire",
+      "item": [
+        {
+          "name": "Statistiques prestataire",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prestataire/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["prestataire", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Mes machines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prestataire/machines?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["prestataire", "machines"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mes réservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prestataire/reservations?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["prestataire", "reservations"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mes paiements reçus",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prestataire/paiements?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["prestataire", "paiements"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mes avis reçus",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prestataire/avis?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["prestataire", "avis"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Statistiques machine",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prestataire/machines/:machineId/statistiques",
+              "host": ["{{base_url}}"],
+              "path": ["prestataire", "machines", ":machineId", "statistiques"],
+              "variable": [
+                {
+                  "key": "machineId",
+                  "value": "machine_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Calendrier réservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prestataire/calendrier",
+              "host": ["{{base_url}}"],
+              "path": ["prestataire", "calendrier"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Machines",
+      "item": [
+        {
+          "name": "Liste machines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/machines?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["machines"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Détails machine",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/machines/:id",
+              "host": ["{{base_url}}"],
+              "path": ["machines", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "machine_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Créer machine",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Tracteur John Deere 6120M\",\n  \"type\": \"tracteur\",\n  \"marque\": \"John Deere\",\n  \"modele\": \"6120M\",\n  \"annee\": 2020,\n  \"puissance\": \"120 CV\",\n  \"description\": \"Tracteur moderne avec GPS\",\n  \"tarifParHeure\": 15000,\n  \"localisation\": {\n    \"adresse\": \"Thiès, Sénégal\",\n    \"coordinates\": [-16.9331, 14.7934]\n  },\n  \"disponible\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/machines",
+              "host": ["{{base_url}}"],
+              "path": ["machines"]
+            }
+          }
+        },
+        {
+          "name": "Mettre à jour machine",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tarifParHeure\": 16000,\n  \"disponible\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/machines/:id",
+              "host": ["{{base_url}}"],
+              "path": ["machines", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "machine_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Supprimer machine",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/machines/:id",
+              "host": ["{{base_url}}"],
+              "path": ["machines", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "machine_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Disponibilités machine",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/machines/:id/disponibilites?dateDebut=2025-12-10&dateFin=2025-12-20",
+              "host": ["{{base_url}}"],
+              "path": ["machines", ":id", "disponibilites"],
+              "query": [
+                {
+                  "key": "dateDebut",
+                  "value": "2025-12-10"
+                },
+                {
+                  "key": "dateFin",
+                  "value": "2025-12-20"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "machine_id"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Réservations",
+      "item": [
+        {
+          "name": "Liste réservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reservations?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["reservations"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Créer réservation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"machineId\": \"machine_id\",\n  \"dateDebut\": \"2025-12-10T08:00:00Z\",\n  \"dateFin\": \"2025-12-10T16:00:00Z\",\n  \"localisation\": {\n    \"adresse\": \"Parcelle 45, Fatick\",\n    \"coordinates\": [-16.4167, 14.3333]\n  },\n  \"notes\": \"Besoin pour labour de 5 hectares\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/reservations",
+              "host": ["{{base_url}}"],
+              "path": ["reservations"]
+            }
+          }
+        },
+        {
+          "name": "Détails réservation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reservations/:id",
+              "host": ["{{base_url}}"],
+              "path": ["reservations", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "reservation_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Confirmer réservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reservations/:id/confirm",
+              "host": ["{{base_url}}"],
+              "path": ["reservations", ":id", "confirm"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "reservation_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Annuler réservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"raison\": \"Changement de planning\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/reservations/:id/cancel",
+              "host": ["{{base_url}}"],
+              "path": ["reservations", ":id", "cancel"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "reservation_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Démarrer réservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reservations/:id/start",
+              "host": ["{{base_url}}"],
+              "path": ["reservations", ":id", "start"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "reservation_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Terminer réservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reservations/:id/complete",
+              "host": ["{{base_url}}"],
+              "path": ["reservations", ":id", "complete"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "reservation_id"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Paiements",
+      "item": [
+        {
+          "name": "Initier paiement",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationId\": \"reservation_id\",\n  \"methodePaiement\": \"paytech\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/payments/initiate",
+              "host": ["{{base_url}}"],
+              "path": ["payments", "initiate"]
+            }
+          }
+        },
+        {
+          "name": "Statut paiement",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/payments/:id/status",
+              "host": ["{{base_url}}"],
+              "path": ["payments", ":id", "status"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "payment_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Historique paiements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/payments?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["payments"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. Avis",
+      "item": [
+        {
+          "name": "Créer avis",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationId\": \"reservation_id\",\n  \"note\": 5,\n  \"commentaire\": \"Excellent service, matériel en parfait état\",\n  \"typeAvis\": \"machine\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/avis",
+              "host": ["{{base_url}}"],
+              "path": ["avis"]
+            }
+          }
+        },
+        {
+          "name": "Avis machine",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/avis/machine/:machineId?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["avis", "machine", ":machineId"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "machineId",
+                  "value": "machine_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Avis prestataire",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/avis/prestataire/:prestataireId?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["avis", "prestataire", ":prestataireId"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "prestataireId",
+                  "value": "prestataire_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Répondre à un avis",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reponse\": \"Merci pour votre retour positif !\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/avis/:id/reponse",
+              "host": ["{{base_url}}"],
+              "path": ["avis", ":id", "reponse"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "avis_id"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "9. Recherche",
+      "item": [
+        {
+          "name": "Recherche globale",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/recherche?q=tracteur&type=machine",
+              "host": ["{{base_url}}"],
+              "path": ["recherche"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "tracteur"
+                },
+                {
+                  "key": "type",
+                  "value": "machine"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Recherche par localisation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/recherche/localisation?latitude=14.7934&longitude=-16.9331&rayon=30",
+              "host": ["{{base_url}}"],
+              "path": ["recherche", "localisation"],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "14.7934"
+                },
+                {
+                  "key": "longitude",
+                  "value": "-16.9331"
+                },
+                {
+                  "key": "rayon",
+                  "value": "30"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Notifications",
+      "item": [
+        {
+          "name": "Liste notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/notifications?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["notifications"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Marquer comme lue",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/notifications/:id/read",
+              "host": ["{{base_url}}"],
+              "path": ["notifications", ":id", "read"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "notification_id"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Tout marquer comme lu",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/notifications/read-all",
+              "host": ["{{base_url}}"],
+              "path": ["notifications", "read-all"]
+            }
+          }
+        },
+        {
+          "name": "Nombre non lues",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/notifications/unread-count",
+              "host": ["{{base_url}}"],
+              "path": ["notifications", "unread-count"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1260 @@
+{
+  "info": {
+    "name": "ALLOTRACTEUR API v2.0",
+    "description": "Collection complète de l'API ALLOTRACTEUR - Plateforme agricole Sénégal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "allotracteur-api-v2",
+    "version": "2.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - AUTHENTIFICATION",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Diallo\",\n  \"prenom\": \"Amadou\",\n  \"telephone\": \"221771234567\",\n  \"email\": \"amadou@allotracteur.sn\",\n  \"motDePasse\": \"password123\",\n  \"role\": \"producteur\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.data.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telephone\": \"221770000000\",\n  \"motDePasse\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Request OTP",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telephone\": \"221771234567\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/request-otp",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "request-otp"]
+            }
+          }
+        },
+        {
+          "name": "Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telephone\": \"221771234567\",\n  \"otp\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/verify-otp",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "verify-otp"]
+            }
+          }
+        },
+        {
+          "name": "Reset Password Request",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"amadou@allotracteur.sn\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/reset-password-request",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "reset-password-request"]
+            }
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"amadou@allotracteur.sn\",\n  \"otp\": \"123456\",\n  \"nouveauMotDePasse\": \"newpassword123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/reset-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "reset-password"]
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ancienMotDePasse\": \"password123\",\n  \"nouveauMotDePasse\": \"newpassword456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/change-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "change-password"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - ADMIN",
+      "item": [
+        {
+          "name": "Get Dashboard Statistics",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/statistics",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "statistics"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users?role=producteur&page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users"],
+              "query": [
+                {"key": "role", "value": "producteur"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "50"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Update User Role",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"prestataire\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:id/role",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", ":id", "role"]
+            }
+          }
+        },
+        {
+          "name": "Activate/Deactivate User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": false\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:id/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", ":id", "status"]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Get All Machines (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/machines?page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "machines"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "50"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Reservations (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/reservations?page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "reservations"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "50"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Payments (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/payments?page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "payments"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "50"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - USERS",
+      "item": [
+        {
+          "name": "Get My Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Diallo\",\n  \"prenom\": \"Amadou\",\n  \"bio\": \"Producteur d'arachides à Thiès\",\n  \"entreprise\": \"AgriDiallo\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Upload Profile Picture",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/profile/picture",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile", "picture"]
+            }
+          }
+        },
+        {
+          "name": "Delete Profile Picture",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile/picture",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile", "picture"]
+            }
+          }
+        },
+        {
+          "name": "Get Dashboard",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Get Public Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/public/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "public", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - NOTIFICATIONS",
+      "item": [
+        {
+          "name": "Get My Notifications",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/me?lue=false&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "me"],
+              "query": [
+                {"key": "lue", "value": "false"},
+                {"key": "limit", "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Notification Stats",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/me/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "me", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Mark as Read",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/:id/read",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", ":id", "read"]
+            }
+          }
+        },
+        {
+          "name": "Mark All as Read",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/read-all",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "read-all"]
+            }
+          }
+        },
+        {
+          "name": "Delete Notification",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete All Read",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/read/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "read", "all"]
+            }
+          }
+        },
+        {
+          "name": "Create Notification (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destinataireId\": \"64abc...\",\n  \"titre\": \"Maintenance\",\n  \"message\": \"Le système sera en maintenance demain\",\n  \"type\": \"system\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/notifications",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - HISTORIQUE",
+      "item": [
+        {
+          "name": "Get My History",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/historique/me?type=reservation_created&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["historique", "me"],
+              "query": [
+                {"key": "type", "value": "reservation_created"},
+                {"key": "limit", "value": "50"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get History Stats",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/historique/me/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["historique", "me", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Get History By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/historique/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["historique", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete History Entry",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/historique/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["historique", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Get All History (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/historique?limit=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["historique"],
+              "query": [{"key": "limit", "value": "100"}]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - MACHINES",
+      "item": [
+        {
+          "name": "Get All Machines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/machines?type=tracteur&disponible=true&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines"],
+              "query": [
+                {"key": "type", "value": "tracteur"},
+                {"key": "disponible", "value": "true"},
+                {"key": "limit", "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Machine By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/machines/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Create Machine",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Tracteur John Deere 5075E\",\n  \"type\": \"tracteur\",\n  \"marque\": \"John Deere\",\n  \"modele\": \"5075E\",\n  \"annee\": 2020,\n  \"description\": \"Tracteur performant\",\n  \"prixParJour\": 50000,\n  \"disponible\": true\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/machines",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines"]
+            }
+          }
+        },
+        {
+          "name": "Update Machine",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prixParJour\": 55000,\n  \"disponible\": false\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/machines/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete Machine",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/machines/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Check Availability",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateDebut\": \"2024-02-10\",\n  \"dateFin\": \"2024-02-15\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/machines/:id/check-availability",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines", ":id", "check-availability"]
+            }
+          }
+        },
+        {
+          "name": "Get Available Dates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/machines/:id/available-dates?startDate=2024-02-01&endDate=2024-03-01",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines", ":id", "available-dates"],
+              "query": [
+                {"key": "startDate", "value": "2024-02-01"},
+                {"key": "endDate", "value": "2024-03-01"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Calculate Price",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateDebut\": \"2024-02-01\",\n  \"dateFin\": \"2024-02-10\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/machines/:id/calculate-price",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines", ":id", "calculate-price"]
+            }
+          }
+        },
+        {
+          "name": "Get Suggested Dates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/machines/:id/suggested-dates?durationDays=5&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["machines", ":id", "suggested-dates"],
+              "query": [
+                {"key": "durationDays", "value": "5"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - RESERVATIONS",
+      "item": [
+        {
+          "name": "Create Reservation",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"machineId\": \"64abc...\",\n  \"dateDebut\": \"2024-02-10\",\n  \"dateFin\": \"2024-02-15\",\n  \"adresseLivraison\": \"Thiès, Sénégal\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservations",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservations"]
+            }
+          }
+        },
+        {
+          "name": "Get My Reservations",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations/me?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservations", "me"],
+              "query": [{"key": "limit", "value": "20"}]
+            }
+          }
+        },
+        {
+          "name": "Get Reservation By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservations", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Reservation",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations/:id/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservations", ":id", "cancel"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - PAIEMENTS",
+      "item": [
+        {
+          "name": "Initiate Payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationId\": \"64ghi...\",\n  \"montant\": 200000,\n  \"moyen\": \"wave\",\n  \"telephone\": \"221771234567\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/initiate",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "initiate"]
+            }
+          }
+        },
+        {
+          "name": "Get My Payments",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payments/me?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "me"],
+              "query": [{"key": "limit", "value": "20"}]
+            }
+          }
+        },
+        {
+          "name": "Get Payment By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payments/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", ":id"]
+            }
+          }
+        },
+        {
+          "name": "PayTech Webhook",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ref_command\": \"AT-...\",\n  \"status\": 1,\n  \"transaction_id\": \"PAYTECH-...\",\n  \"type_event\": \"payment_complete\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/webhook",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "webhook"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 - AVIS",
+      "item": [
+        {
+          "name": "Create Avis",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"machineId\": \"64abc...\",\n  \"reservationId\": \"64def...\",\n  \"note\": 5,\n  \"commentaire\": \"Excellent service!\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/avis",
+              "host": ["{{baseUrl}}"],
+              "path": ["avis"]
+            }
+          }
+        },
+        {
+          "name": "Get Avis By Machine",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/avis/machine/:machineId?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["avis", "machine", ":machineId"],
+              "query": [{"key": "limit", "value": "20"}]
+            }
+          }
+        },
+        {
+          "name": "Get My Avis",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/avis/me?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["avis", "me"],
+              "query": [{"key": "limit", "value": "20"}]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 - RECHERCHE",
+      "item": [
+        {
+          "name": "Search Prestataires",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recherche/prestataires?latitude=14.7886&longitude=-16.9318&rayon=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["recherche", "prestataires"],
+              "query": [
+                {"key": "latitude", "value": "14.7886"},
+                {"key": "longitude", "value": "-16.9318"},
+                {"key": "rayon", "value": "50"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Machines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recherche/machines?type=tracteur&latitude=14.7886&longitude=-16.9318&rayon=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["recherche", "machines"],
+              "query": [
+                {"key": "type", "value": "tracteur"},
+                {"key": "latitude", "value": "14.7886"},
+                {"key": "longitude", "value": "-16.9318"},
+                {"key": "rayon", "value": "50"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recherche/services?categorie=labour&latitude=14.7886&longitude=-16.9318",
+              "host": ["{{baseUrl}}"],
+              "path": ["recherche", "services"],
+              "query": [
+                {"key": "categorie", "value": "labour"},
+                {"key": "latitude", "value": "14.7886"},
+                {"key": "longitude", "value": "-16.9318"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "11 - SERVICES",
+      "item": [
+        {
+          "name": "Get All Services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/services?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["services"],
+              "query": [{"key": "limit", "value": "20"}]
+            }
+          }
+        },
+        {
+          "name": "Create Service",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Labour profond\",\n  \"description\": \"Service de labour\",\n  \"categorie\": \"labour\",\n  \"prixParHectare\": 25000\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/services",
+              "host": ["{{baseUrl}}"],
+              "path": ["services"]
+            }
+          }
+        },
+        {
+          "name": "Get Service By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/services/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["services", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "12 - PRESTATAIRES",
+      "item": [
+        {
+          "name": "Get All Prestataires",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/prestataires?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["prestataires"],
+              "query": [{"key": "limit", "value": "20"}]
+            }
+          }
+        },
+        {
+          "name": "Create Prestataire",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}"}]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Prestataire services agricoles\",\n  \"longitude\": -16.9318,\n  \"latitude\": 14.7886,\n  \"adresse\": \"Thiès, Sénégal\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/prestataires",
+              "host": ["{{baseUrl}}"],
+              "path": ["prestataires"]
+            }
+          }
+        },
+        {
+          "name": "Get Prestataire By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/prestataires/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["prestataires", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "HEALTH CHECK",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["health"]
+        }
+      }
+    }
+  ]
+}

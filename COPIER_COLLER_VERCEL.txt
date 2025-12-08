@@ -1,0 +1,120 @@
+=================================================================
+📋 COPIER-COLLER DIRECT POUR VERCEL
+=================================================================
+Instructions :
+1. Allez sur Vercel → Votre projet → Settings → Environment Variables
+2. Copiez CHAQUE ligne ci-dessous (une par une)
+3. Collez dans Vercel : Name = variable | Value = valeur
+4. Sélectionnez : Production + Preview + Development
+5. Save après chaque ajout
+=================================================================
+
+MONGO_URI=mongodb+srv://infosallotracteur_db_user:agroboost1@cluster0.ewwcojv.mongodb.net/allotracteur?retryWrites=true&w=majority&appName=Cluster0
+
+JWT_SECRET=allotracteur_secret_key_2024_dev_env_very_secure_key_min_32_chars
+
+JWT_EXPIRES_IN=7d
+
+NODE_ENV=production
+
+CLOUDINARY_CLOUD_NAME=dt8fos8ws
+
+CLOUDINARY_API_KEY=955324417262215
+
+CLOUDINARY_API_SECRET=3Cwl3IA-VUu8so6hhN2O8b1TfOI
+
+PAYTECH_API_KEY=d88bc791f147b1100404352168c1243417194e6128c59c0822887eb6ccaa0767
+
+PAYTECH_API_SECRET=6d512c7c0e8d7400a31e81cfedc0b26d6838f394cacd803b1e884570c23fd779
+
+PAYTECH_ENV=production
+
+PAYTECH_BASE_URL=https://paytech.sn/api
+
+PAYTECH_API_URL=https://paytech.sn/api/payment/request-payment
+
+PAYTECH_CALLBACK_SECRET=allotracteur_webhook_secret_2024
+
+PAYTECH_IPN_URL=https://votre-backend-vercel.vercel.app/api/payments/webhook
+
+PAYTECH_SUCCESS_URL=https://votre-frontend.vercel.app/payment-success
+
+PAYTECH_CANCEL_URL=https://votre-frontend.vercel.app/payment-cancel
+
+CORS_ORIGIN=*
+
+RATE_LIMIT_WINDOW_MS=900000
+
+RATE_LIMIT_MAX_REQUESTS=100
+
+EMAIL_HOST=smtp.gmail.com
+
+EMAIL_PORT=587
+
+EMAIL_SECURE=false
+
+EMAIL_USER=infos.allotracteur@gmail.com
+
+EMAIL_PASSWORD=nyxu ktny cpcp oygg
+
+EMAIL_FROM=ALLOTRACTEUR <infos.allotracteur@gmail.com>
+
+SMS_PROVIDER=twilio
+
+SMS_ENABLED=false
+
+SMS_SENDER=+221771234567
+
+LOG_LEVEL=info
+
+=================================================================
+⚠️ IMPORTANT - Modifier ces URLs :
+=================================================================
+
+Après avoir déployé sur Vercel, MODIFIEZ ces 3 variables :
+
+1. PAYTECH_IPN_URL
+   Remplacez par : https://[VOTRE-URL-VERCEL].vercel.app/api/payments/webhook
+
+2. PAYTECH_SUCCESS_URL
+   Remplacez par : https://[VOTRE-FRONTEND].vercel.app/payment-success
+
+3. PAYTECH_CANCEL_URL
+   Remplacez par : https://[VOTRE-FRONTEND].vercel.app/payment-cancel
+
+=================================================================
+✅ MongoDB Atlas - Configuration Réseau
+=================================================================
+
+1. Allez sur : https://cloud.mongodb.com
+2. Cliquez sur votre cluster → Network Access
+3. Ajoutez l'IP : 0.0.0.0/0
+   (pour autoriser Vercel à se connecter)
+4. Description : "Vercel Deployment"
+5. Confirm
+
+=================================================================
+🚀 ÉTAPES APRÈS CONFIGURATION
+=================================================================
+
+1. ✅ Toutes les variables ajoutées sur Vercel
+2. ✅ MongoDB Network Access configuré (0.0.0.0/0)
+3. 🔄 Redéployer sur Vercel :
+   - Vercel → Deployments
+   - Dernier déploiement → ⋯ → Redeploy
+   - Attendez 1-2 minutes
+
+4. 🧪 Tester l'API :
+   curl https://votre-url.vercel.app/
+
+   Résultat attendu :
+   {
+     "success": true,
+     "message": "Bienvenue sur l'API ALLOTRACTEUR",
+     "version": "1.0.0",
+     "environment": "production",
+     "endpoints": { ... },
+     "status": "OK"
+   }
+
+=================================================================

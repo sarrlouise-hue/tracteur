@@ -1,0 +1,12 @@
+node_modules
+logs
+*.log
+.env
+.env.local
+test-*.js
+tests
+*.test.js
+*.md
+.bolt
+verifier-config.js
+POSTMAN_COLLECTION*.json
