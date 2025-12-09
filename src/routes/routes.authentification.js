@@ -4,17 +4,40 @@ const authController = require('../controllers/controleur.authentification');
 const { authenticate } = require('../middleware/middleware.authentification');
 const { validate, schemas } = require('../middleware/middleware.validation');
 
-router.post('/register', validate(schemas.register), authController.register);
-router.post('/login', validate(schemas.login), authController.login);
+// ✔️ Inscription
+router.post('/inscription', validate(schemas.register), authController.register);
+
+// ✔️ Connexion
+router.post('/connexion', validate(schemas.login), authController.login);
+
+// ✔️ Déconnexion
 router.post('/logout', authenticate, authController.logout);
-router.post('/request-otp', authController.requestOTP);
-router.post('/verify-otp', authController.verifyOTP);
-router.post('/resend-otp', authController.resendOTP);
-router.post('/verify-otp-activate', authController.verifyOTPAndActivate);
-router.post('/forgot-password', authController.forgotPassword);
-router.post('/reset-password', authController.resetPassword);
-router.post('/change-password', authenticate, authController.changePassword);
+
+// ✔️ Demande OTP
+router.post('/demander-otp', authController.requestOTP);
+
+// ✔️ Vérifier OTP
+router.post('/verifier-otp', authController.verifyOTP);
+
+// ✔️ Renvoyer OTP
+router.post('/renvoyer-otp', authController.resendOTP);
+
+// ✔️ Vérifier OTP + activer compte
+router.post('/verifier-otp-activer', authController.verifyOTPAndActivate);
+
+// ✔️ Mot de passe oublié
+router.post('/mot-de-passe-oublie', authController.forgotPassword);
+
+// ✔️ Réinitialisation mot de passe
+router.post('/reinitialiser-mot-de-passe', authController.resetPassword);
+
+// ✔️ Changer mot de passe connecté
+router.post('/changer-mot-de-passe', authenticate, authController.changePassword);
+
+// ✔️ Refresh token
 router.post('/refresh-token', authController.refreshToken);
-router.get('/profile', authenticate, authController.getProfile);
+
+// ✔️ Profil utilisateur
+router.get('/profil', authenticate, authController.getProfile);
 
 module.exports = router;
